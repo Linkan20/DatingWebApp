@@ -1,0 +1,18 @@
+﻿@using DatingWebApp.Models
+@model  ProfileIndexViewModel
+
+<table>
+    @foreach (var profile in Model.Profiles)
+    {
+        <tr>
+            <td>@profile.Firstname</td>
+            <td>@profile.Lastname</td>
+            <td>@profile.Birthdate</td>
+            <td>@profile.Biography</td>
+            <td>@profile.Image</td>
+        </tr>
+    }
+</table>
+<hr />
+
+@Html.Partial("AddProfileForm", new Profile())
