@@ -1,10 +1,15 @@
 ﻿@model DatingWebApp.Models.Profile
 
-@using (Html.BeginForm("AddProfile", "Profile", FormMethod.Post, new { enctype = "multipart/form-data" })) //Vet inte vad multipart/form-data gör
-                                                                                                           //men behövs för att ladda up en bild
-{                                                                                                          //även type = "file" nere vid image form
-    @Html.AntiForgeryToken()
+@{
+    ViewBag.Title = "CreateProfile";
+}
 
+<h2>AddProfileForm2</h2>
+
+@using (Html.BeginForm("CreateProfile", "Profile", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{                                                                   //multipart/form-data behövs för att kunna ladda upp en bild, även type = "file" nere vid image
+    @Html.AntiForgeryToken()
+    
     <div class="form-horizontal">
         <h4>Profile</h4>
         <hr />
@@ -43,7 +48,7 @@
 
         <div class="form-group">
             @Html.LabelFor(model => model.Image, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">                                                                             
+            <div class="col-md-10">
                 @Html.EditorFor(model => model.Image, new { htmlAttributes = new { @class = "form-control", type = "file" } })
                 @Html.ValidationMessageFor(model => model.Image, "", new { @class = "text-danger" })
             </div>

@@ -22,9 +22,14 @@ namespace DatingWebApp.Controllers
             return View(viewModel);
         }
 
+        public ActionResult CreateProfile()
+        {
+            return View();
+        }
+
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult AddProfile(Profile model, HttpPostedFileBase image)
+        public ActionResult CreateProfile(Profile model, HttpPostedFileBase image)
         {
             var ctx = new DatingDbContext();
 
@@ -40,7 +45,28 @@ namespace DatingWebApp.Controllers
             ctx.Profiles.Add(model);
             ctx.SaveChanges();
 
-            return RedirectToAction("Index");
+            return RedirectToAction("Index", "Home");
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult EditProfile(Profile model, HttpPostedFileBase image)
+        {
+            var ctx = new DatingDbContext();
+
+            if (image != null)
+            {
+                model.Image = image.FileName;
+                string fileName = Path.GetFileName(image.FileName);
+                string path = Path.Combine(Server.MapPath("~/Images/"
+                + fileName));
+                image.SaveAs(path);
+            }
+
+            ctx.Profiles.Add(model);
+            ctx.SaveChanges();
+
+            return RedirectToAction("Index", "Profile");
         }
     }
 }
