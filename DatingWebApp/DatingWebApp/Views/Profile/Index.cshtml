@@ -1,18 +1,24 @@
 ﻿@using DatingWebApp.Models
 @model  ProfileIndexViewModel
+@if (Request.IsAuthenticated) //Eller @User.Identity.IsAuthenticated, vet inte vilken som ska vara 
+{
+    <table>
+        @foreach (var profile in Model.Profiles)
+        {
+            <tr>
+                <td>@profile.Firstname</td>
+                <td>@profile.Lastname</td>
+                <td>@profile.Birthdate</td>
+                <td>@profile.Biography</td>
+                <td>@profile.Image</td>
+            </tr>
+        }
+    </table>
+    <hr />
 
-<table>
-    @foreach (var profile in Model.Profiles)
-    {
-        <tr>
-            <td>@profile.Firstname</td>
-            <td>@profile.Lastname</td>
-            <td>@profile.Birthdate</td>
-            <td>@profile.Biography</td>
-            <td>@profile.Image</td>
-        </tr>
-    }
-</table>
-<hr />
-
-@Html.Partial("AddProfileForm", new Profile())
+    @Html.Partial("AddProfileForm", new Profile())
+}
+else
+{
+    <h4>You need to log in!</h4>
+}

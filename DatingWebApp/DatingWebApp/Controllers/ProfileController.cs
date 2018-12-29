@@ -23,6 +23,7 @@ namespace DatingWebApp.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult AddProfile(Profile model, HttpPostedFileBase image)
         {
             var ctx = new DatingDbContext();
