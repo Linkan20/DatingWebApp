@@ -25,6 +25,8 @@ namespace DatingWebApp.Models
         {
         }
 
+        public DbSet<Profile> Profiles { get; set; }
+
         public static ApplicationDbContext Create()
         {
             return new ApplicationDbContext();

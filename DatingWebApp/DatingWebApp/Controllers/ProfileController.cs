@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using Microsoft.AspNet.Identity;
 
 using DatingWebApp.Models;
 
@@ -14,7 +15,8 @@ namespace DatingWebApp.Controllers
         // GET: Profile
         public ActionResult Index()
         {
-            var ctx = new DatingDbContext();
+            //var ctx = new DatingDbContext();
+            var ctx = new ApplicationDbContext();
             var viewModel = new ProfileIndexViewModel
             {
                 Profiles = ctx.Profiles.ToList()
@@ -31,7 +33,8 @@ namespace DatingWebApp.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult CreateProfile(Profile model, HttpPostedFileBase image)
         {
-            var ctx = new DatingDbContext();
+            //var ctx = new DatingDbContext();
+            var ctx = new ApplicationDbContext();
 
             if (image != null)
             {
@@ -41,6 +44,8 @@ namespace DatingWebApp.Controllers
                 + fileName));
                 image.SaveAs(path);
             }
+
+            model.UserId = User.Identity.GetUserId();
 
             ctx.Profiles.Add(model);
             ctx.SaveChanges();
@@ -52,7 +57,8 @@ namespace DatingWebApp.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult EditProfile(Profile model, HttpPostedFileBase image)
         {
-            var ctx = new DatingDbContext();
+            //var ctx = new DatingDbContext();
+            var ctx = new ApplicationDbContext();
 
             if (image != null)
             {

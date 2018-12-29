@@ -30,5 +30,9 @@ namespace DatingWebApp.Models
         [DisplayName("Profilbild")]
         [DataType(DataType.ImageUrl)]
         public string Image { get; set; }
+      
+        public string UserId { get; set; }
+        [ForeignKey("UserId")]
+        public virtual ApplicationUser User { get; set; }
     }
 }

@@ -4,10 +4,10 @@
     ViewBag.Title = "CreateProfile";
 }
 
-<h2>AddProfileForm2</h2>
+<h2>Create a profile</h2>
 
 @using (Html.BeginForm("CreateProfile", "Profile", FormMethod.Post, new { enctype = "multipart/form-data" }))
-{                                                                   //multipart/form-data behövs för att kunna ladda upp en bild, även type = "file" nere vid image
+{                                                                   //multipart/form-data behövs för att kunna ladda upp en bild, även type = "file" vid image
     @Html.AntiForgeryToken()
     
     <div class="form-horizontal">
