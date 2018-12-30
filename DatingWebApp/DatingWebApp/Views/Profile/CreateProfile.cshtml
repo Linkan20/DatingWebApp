@@ -4,10 +4,11 @@
     ViewBag.Title = "CreateProfile";
 }
 
-<h2>Create a profile</h2>
+<h2>CreateProfile</h2>
 
-@using (Html.BeginForm("CreateProfile", "Profile", FormMethod.Post, new { enctype = "multipart/form-data" }))
-{                                                                   //multipart/form-data behövs för att kunna ladda upp en bild, även type = "file" vid image
+
+@using (Html.BeginForm("CreateProfile", "Profile", FormMethod.Post, new { enctype = "multipart/form-data" })) 
+{
     @Html.AntiForgeryToken()
     
     <div class="form-horizontal">
@@ -65,3 +66,7 @@
 <div>
     @Html.ActionLink("Back to List", "Index")
 </div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

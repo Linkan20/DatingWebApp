@@ -18,18 +18,16 @@ namespace DatingWebApp.Models
         }
     }
 
-    public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
+    public partial class DatingDbContext : IdentityDbContext<ApplicationUser>
     {
-        public ApplicationDbContext()
-            : base("DefaultConnection", throwIfV1Schema: false)
+        public DatingDbContext()
+            : base("DatingDB", throwIfV1Schema: false)
         {
         }
 
-        public DbSet<Profile> Profiles { get; set; }
-
-        public static ApplicationDbContext Create()
+        public static DatingDbContext Create()
         {
-            return new ApplicationDbContext();
+            return new DatingDbContext();
         }
     }
 }

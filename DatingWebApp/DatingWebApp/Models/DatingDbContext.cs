@@ -7,10 +7,11 @@ using System.Web;
 
 namespace DatingWebApp.Models
 {
-    public class DatingDbContext : DbContext
-    {        
+    public partial class DatingDbContext : IdentityDbContext<ApplicationUser>
+    {
+        public DbSet<Profile> Profiles { get; set; }
         public DbSet<Post> Posts { get; set; }
 
-        public DatingDbContext() : base("DefaultConnection") { }
+        //public DatingDbContext() : base("DatingDB"){ }
     }
 }

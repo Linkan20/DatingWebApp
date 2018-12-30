@@ -13,26 +13,29 @@ namespace DatingWebApp.Models
         [Key]
         public int Profile_Id { get; set; }
 
-        [DisplayName("Förnamn")]
+        [Display(Name= "Förnamn")]
+        [Required(ErrorMessage = "Du måste ha ett förnamn.")]
         public string Firstname { get; set; }
 
-        [DisplayName("Efternamn")]
+        [Display(Name = "Efternamn")]
+        [Required(ErrorMessage = "Du måste ha ett efternamn.")]
         public string Lastname { get; set; }
 
-        [DisplayName("Födelsedatum")]
+        [Display(Name = "Födelsedatum")]
+        [Required(ErrorMessage = "Du måste ha ett födelsedatum.")]
         [DataType(DataType.Date)]
         public string Birthdate { get; set; }
 
-        [DisplayName("Om dig själv")]
+        [Display(Name = "Om dig själv")]
         [DataType(DataType.MultilineText)]
         public string Biography { get; set; }
 
-        [DisplayName("Profilbild")]
+        [Display(Name = "Profilbild")]
         [DataType(DataType.ImageUrl)]
         public string Image { get; set; }
-      
-        public string UserId { get; set; }
-        [ForeignKey("UserId")]
-        public virtual ApplicationUser User { get; set; }
+
+        public string User_Id { get; set; }
+        [ForeignKey("User_Id")]
+        public virtual ApplicationUser ApplicationUser { get; set; }
     }
 }
