@@ -28,11 +28,11 @@ namespace DatingWebApp.Controllers
 
                 if (image != null)
                 {
-                    var type = Path.GetExtension(image.FileName).ToLower();
+                    var fileType = Path.GetExtension(image.FileName).ToLower();
 
                     string fileName = User.Identity.GetUserId();
-                    string path = Path.Combine(Server.MapPath("~/Images/" + fileName + type));
-                    model.Image = fileName + type;
+                    string path = Path.Combine(Server.MapPath("~/Images/" + fileName + fileType));
+                    model.Image = fileName + fileType;
                     image.SaveAs(path);
                 }
                 model.User_ID = User.Identity.GetUserId();
@@ -47,7 +47,55 @@ namespace DatingWebApp.Controllers
 
         public ActionResult EditProfile()
         {
-            return View();
+            var ctx = new DatingDbContext();
+            string userID = User.Identity.GetUserId();
+
+            ProfileModel profile = ctx.Profiles.FirstOrDefault(p => p.User_ID.Equals(userID));
+
+            return View(profile);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult EditProfile(ProfileModel model, HttpPostedFileBase image)
+        {
+            if (ModelState.IsValid)
+            {
+                var ctx = new DatingDbContext();
+                string userID = User.Identity.GetUserId();       
+
+                ProfileModel profile = ctx.Profiles.FirstOrDefault(p => p.User_ID.Equals(userID));
+
+                profile.User_ID = model.User_ID;
+                profile.Firstname = model.Firstname;
+                profile.Lastname = model.Lastname;
+                profile.Birthdate = model.Birthdate;
+                profile.City = model.City;
+                profile.Biography = model.Biography;
+                profile.Gender = model.Gender;
+                profile.LookingFor = model.LookingFor;
+
+                if (image != null) //egen metod?
+                {              
+                    var prevFileName = Path.GetFileNameWithoutExtension(profile.Image);
+                    
+                    if (prevFileName.Equals(userID))
+                    {
+                        var prevPath = Path.Combine(Server.MapPath("~/Images/" + profile.Image));
+                        System.IO.File.Delete(prevPath);
+                    }
+
+                    var fileType = Path.GetExtension(image.FileName).ToLower();
+                    string path = Path.Combine(Server.MapPath("~/Images/" + userID + fileType));
+                    profile.Image = userID + fileType;
+                    image.SaveAs(path);
+                }
+
+                ctx.SaveChanges();
+
+                return RedirectToAction("EditProfile", "Profile");
+            }
+            return View(model);
         }
     }
 }

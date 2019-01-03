@@ -58,8 +58,8 @@
     <div class="form-group">
         @Html.LabelFor(model => model.Gender, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
-            Man: @Html.RadioButtonFor(model => model.Gender, "M")
-            Kvinna: @Html.RadioButtonFor(model => model.Gender, "F")
+            Man: @Html.RadioButtonFor(model => model.Gender, "Man")
+            Kvinna: @Html.RadioButtonFor(model => model.Gender, "Kvinna")
             @Html.ValidationMessageFor(model => model.Gender, "", new { @class = "text-danger" })
         </div>
     </div>
@@ -67,8 +67,8 @@
     <div class="form-group">
         @Html.LabelFor(model => model.LookingFor, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
-            Man: @Html.RadioButtonFor(model => model.LookingFor, "M")
-            Kvinna: @Html.RadioButtonFor(model => model.LookingFor, "F")
+            Man: @Html.RadioButtonFor(model => model.LookingFor, "Man")
+            Kvinna: @Html.RadioButtonFor(model => model.LookingFor, "Kvinna")
             @Html.ValidationMessageFor(model => model.LookingFor, "", new { @class = "text-danger" })
         </div>
     </div>
