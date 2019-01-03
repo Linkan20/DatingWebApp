@@ -8,10 +8,10 @@ using System.Web;
 
 namespace DatingWebApp.Models
 {
-    public class Profile
+    public class ProfileModel
     {
         [Key]
-        public int Profile_Id { get; set; }
+        public string User_ID { get; set; }
 
         [Display(Name= "Förnamn")]
         [Required(ErrorMessage = "Du måste ha ett förnamn.")]
@@ -26,16 +26,24 @@ namespace DatingWebApp.Models
         [DataType(DataType.Date)]
         public string Birthdate { get; set; }
 
+        [Display(Name = "Stad")]
+        [Required(ErrorMessage = "*")]
+        public string City { get; set; }
+
         [Display(Name = "Om dig själv")]
         [DataType(DataType.MultilineText)]
         public string Biography { get; set; }
 
+        [Display(Name = "Kön")]
+        [Required(ErrorMessage = "*")]
+        public string Gender { get; set; }
+
+        [Display(Name = "Söker")]
+        [Required(ErrorMessage = "*")]
+        public string LookingFor { get; set; }
+
         [Display(Name = "Profilbild")]
         [DataType(DataType.ImageUrl)]
         public string Image { get; set; }
-
-        public string User_Id { get; set; }
-        [ForeignKey("User_Id")]
-        public virtual ApplicationUser ApplicationUser { get; set; }
     }
 }

@@ -10,20 +10,9 @@ using DatingWebApp.Models;
 
 namespace DatingWebApp.Controllers
 {
+    [Authorize]
     public class ProfileController : Controller
     {
-        // GET: Profile
-        public ActionResult Index()
-        {
-            var ctx = new DatingDbContext();
-
-            var viewModel = new ProfileIndexViewModel
-            {
-                Profiles = ctx.Profiles.ToList()
-            };
-            return View(viewModel);
-        }
-
         public ActionResult CreateProfile()
         {
             return View();
@@ -31,7 +20,7 @@ namespace DatingWebApp.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult CreateProfile(Profile model, HttpPostedFileBase image)
+        public ActionResult CreateProfile(ProfileModel model, HttpPostedFileBase image)
         {
             if(ModelState.IsValid)
             {
@@ -39,14 +28,14 @@ namespace DatingWebApp.Controllers
 
                 if (image != null)
                 {
-                    model.Image = image.FileName;
-                    string fileName = Path.GetFileName(image.FileName);
-                    string path = Path.Combine(Server.MapPath("~/Images/"
-                    + fileName));
+                    var type = Path.GetExtension(image.FileName).ToLower();
+
+                    string fileName = User.Identity.GetUserId();
+                    string path = Path.Combine(Server.MapPath("~/Images/" + fileName + type));
+                    model.Image = fileName + type;
                     image.SaveAs(path);
                 }
-
-                model.User_Id = User.Identity.GetUserId();
+                model.User_ID = User.Identity.GetUserId();
 
                 ctx.Profiles.Add(model);
                 ctx.SaveChanges();
@@ -56,35 +45,9 @@ namespace DatingWebApp.Controllers
             return View(model);
         }
 
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult EditProfile(Profile model, HttpPostedFileBase image)
+        public ActionResult EditProfile()
         {
-            var ctx = new DatingDbContext();
-
-            foreach(var profile in ctx.Profiles)
-            {
-                if(profile.User_Id.Equals(User.Identity.GetUserId()))
-                {                  
-                    profile.Firstname = model.Firstname;
-                    profile.Lastname = model.Lastname;
-                    profile.Birthdate = model.Birthdate;
-                    profile.Biography = model.Biography;
-
-                    if (image != null)
-                    {
-                        profile.Image = image.FileName;
-                        string fileName = Path.GetFileName(image.FileName);
-                        string path = Path.Combine(Server.MapPath("~/Images/"
-                        + fileName));
-                        image.SaveAs(path);
-                    }
-
-                    break;                    
-                }
-                ctx.SaveChanges();
-            }
-            return RedirectToAction("Index", "Profile");
+            return View();
         }
     }
 }

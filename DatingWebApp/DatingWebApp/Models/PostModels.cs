@@ -7,13 +7,13 @@ using System.Web;
 
 namespace DatingWebApp.Models
 {
-    public class Wall
+    public class PostModel
     {
         [Key]
-        public int Wall_Id { get; set; }
-
-        //public int Profile_Id { get; set; }
-        //[ForeignKey("Profile_Id")]
-        //public Profile Profile { get; set; }
+        public int Post_ID { get; set; }
+        public string Text { get; set; }
+        public DateTime PostDate { get; set; }
+        public string Sender { get; set; }
+        public int Receiver { get; set; }
     }
 }
