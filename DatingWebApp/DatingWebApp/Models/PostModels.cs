@@ -13,7 +13,8 @@ namespace DatingWebApp.Models
         public int Post_ID { get; set; }
         public string Text { get; set; }
         public DateTime PostDate { get; set; }
-        public string Sender { get; set; }
-        public int Receiver { get; set; }
+
+        public ProfileModel Sender { get; set; }
+        public ProfileModel Receiver { get; set; }
     }
 }

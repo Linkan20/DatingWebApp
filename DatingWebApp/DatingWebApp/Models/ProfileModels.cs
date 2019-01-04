@@ -45,5 +45,22 @@ namespace DatingWebApp.Models
         [Display(Name = "Profilbild")]
         [DataType(DataType.ImageUrl)]
         public string Image { get; set; }
+
+        public bool Active { get; set; }
+
+        [InverseProperty("Requester")]
+        public ICollection<FriendModel> FriendRequest { get; set; }
+        [InverseProperty("Receiver")]
+        public ICollection<FriendModel> FriendReceiver { get; set; }
+
+        [InverseProperty("Sender")]
+        public ICollection<PostModel> PostSender { get; set; }
+        [InverseProperty("Receiver")]
+        public ICollection<PostModel> PostReceiver { get; set; }
+
+        public ProfileModel()
+        {
+            Active = false;
+        }
     }
 }

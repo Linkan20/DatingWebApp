@@ -11,14 +11,14 @@ namespace DatingWebApp.Models
         [Key]
         public int Friend_ID { get; set; }
 
-        public int Requester { get; set; }
+        public ProfileModel Requester { get; set; }
+        public ProfileModel Receiver { get; set; }
 
-        public int Receiver { get; set; }
+        public bool Accepted { get; set; }
 
-        public bool Accepted
+        public FriendModel()
         {
-            get { return Accepted; }
-            set { Accepted = false; }
+            Accepted = false;
         }
     }
 }
